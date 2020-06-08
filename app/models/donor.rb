@@ -12,9 +12,15 @@ class Donor
         @@all
     end
 
+    def donations
+        Donation.all.select do |dona|
+            dona.donor == self
+        end
+    end
+
     def artist_names
-        artArray = Artist.all.select do |a|
-            a.donors.include?(self)
+        artArray = self.donations.map do |dona|
+            dona.artist
         end.uniq
         artArray.map do |a|
             a.name

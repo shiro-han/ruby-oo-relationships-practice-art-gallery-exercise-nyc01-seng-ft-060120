@@ -1,16 +1,24 @@
 class Artist
 
-  attr_reader :name, :years_experience, :donors
+  attr_reader :name, :years_experience
   @@all = []
 
-  def initialize(name, years_experience, donors = [])
+  def initialize(name, years_experience)
     @name = name
     @years_experience = years_experience
-    @donors = donors
     @@all << self
   end
   def self.all
     @@all
+  end
+
+  def donors
+    donaArray = Donation.all.select do |dona|
+      dona.artist == self
+    end
+    donaArray.map do |dona|
+      dona.donor
+    end
   end
 
   def donor_names
