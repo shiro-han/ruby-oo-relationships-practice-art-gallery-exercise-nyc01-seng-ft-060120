@@ -14,7 +14,7 @@ class Donor
 
     def artist_names
         artArray = Artist.all.select do |a|
-            a.donor == self
+            a.donors.include?(self)
         end.uniq
         artArray.map do |a|
             a.name

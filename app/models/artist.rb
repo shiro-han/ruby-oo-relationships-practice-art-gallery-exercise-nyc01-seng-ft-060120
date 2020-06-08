@@ -1,23 +1,27 @@
 class Artist
 
-  attr_reader :name, :years_experience, :donor
+  attr_reader :name, :years_experience, :donors
   @@all = []
 
-  def initialize(name, years_experience, donor)
+  def initialize(name, years_experience, donors = [])
     @name = name
     @years_experience = years_experience
-    @donor = donor
+    @donors = donors
     @@all << self
   end
   def self.all
     @@all
   end
 
-  def donor_name
-    self.donor.name
+  def donor_names
+    self.donors.map do |d|
+      d.name
+    end
   end
-  def donor_ammount
-    self.donor.ammount
+  def donor_total
+    self.donors.map do |d|
+      d.ammount
+    end.sum
   end
 
   def paintings
